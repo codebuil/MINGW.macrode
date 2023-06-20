@@ -6,6 +6,12 @@
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 HWND hwndTextbox1,hwndTextbox2,hwndButton ;
+void enviarComandoClique() {
+    
+    // Simular o clique do mouse
+    mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
+    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+}
 void enviarTeclaDeVolta(int i) {
     // Simular a pressionar da tecla Enter
     keybd_event(i, 0, 0, 0);
@@ -71,19 +77,22 @@ void macrodesponto(const char*  frase) {
 	if (count>1)Sleep(args[0]);  // Converte segundos para milissegundos
     }
 if(strcmp(token[0],"run")==0){
-	if (count>1)abrirEmSegundoPlano(token[1]);  // Converte segundos para milissegundos
+	if (count>1)abrirEmSegundoPlano(token[1]);  
     }
 if(strcmp(token[0],"xy")==0){
-	if (count>2)moverCursor(atoi(token[1]), atoi(token[2]));  // Converte segundos para milissegundos
+	if (count>2)moverCursor(atoi(token[1]), atoi(token[2]));  
     }
 if(strcmp(token[0],"print")==0){
 	if (count>1)enviarStringDeVolta (token[1]);  
     }
  if(strcmp(token[0],"key")==0){
     	args[0]= atoi(token[1]);
-	if (count>1)enviarTeclaDeVolta(args[0]);  // Converte segundos para milissegundos
+	if (count>1)enviarTeclaDeVolta(args[0]);  
     }
-    
+        if(strcmp(token[0],"click")==0){
+    	
+	if (count>0)enviarComandoClique();  
+    }
 }
 void macrodes(const char* frase) {
     // Implemente a lógica da função macrodes aqui

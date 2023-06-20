@@ -4,9 +4,13 @@ print,12
 key,187
 print,12=
 key,13
+run,C:\Windows\System32\mspaint.exe
 sleep,1000
-xy,0,0
+xy,300,300
+click
 sleep,1001
-xy,500,500
+xy,400,400
+click
 sleep,1002
-xy,200,200
+xy,500,500
+click
