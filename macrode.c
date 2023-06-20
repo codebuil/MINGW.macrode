@@ -75,6 +75,9 @@ HWND janelaAtiva ;
     char copiaFrase[1024];
     int count =0;
     int args[100];
+RECT rect;
+ HDC hdc;
+PAINTSTRUCT ps;
     
     strcpy(copiaFrase, frase);
     // Definir o texto do campo de texto 2
@@ -120,6 +123,15 @@ if(strcmp(token[0],"msg")==0){
 	if (count>1) MessageBox( janelaAtiva,token[1], "Message", MB_OK);
 
     }
+if(strcmp(token[0],"scr")==0){
+ janelaAtiva = GetForegroundWindow();
+	if (count>1){
+hdc = BeginPaint(janelaAtiva, &ps);
+GetClientRect(janelaAtiva, &rect);
+ DrawText(hdc, token[1], 0, &rect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+EndPaint(janelaAtiva, &ps);
+    }
+}
 }
 void macrodes(const char* frase) {
     // Implemente a lógica da função macrodes aqui
