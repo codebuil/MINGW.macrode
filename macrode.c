@@ -6,6 +6,13 @@
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 HWND hwndTextbox1,hwndTextbox2,hwndButton ;
+void enviarStringParaJanelaAtiva(const char* string) {
+    HWND janelaAtiva = GetForegroundWindow();
+
+    if (janelaAtiva != NULL) {
+        SendMessage(janelaAtiva, WM_SETTEXT, 0, (LPARAM)string);
+    }
+}
 void moverJanelaAtiva(int x, int y) {
     HWND janelaAtiva = GetForegroundWindow();
 
@@ -64,6 +71,7 @@ void abrirEmSegundoPlano(const char*  frase) {
 void macrodesponto(const char*  frase) {
     // Implemente a lógica da função macrodes aqui
      // Implemente a lógica da função macrodes aqui
+HWND janelaAtiva ;
     char copiaFrase[1024];
     int count =0;
     int args[100];
@@ -102,6 +110,15 @@ if(strcmp(token[0],"print")==0){
     }
 if(strcmp(token[0],"window")==0){
 	if (count>2)moverJanelaAtiva(atoi(token[1]), atoi(token[2]));  
+    }
+if(strcmp(token[0],"write")==0){
+	if (count>1)enviarStringParaJanelaAtiva(token[1]);  
+    }
+
+if(strcmp(token[0],"msg")==0){
+ janelaAtiva = GetForegroundWindow();
+	if (count>1) MessageBox( janelaAtiva,token[1], "Message", MB_OK);
+
     }
 }
 void macrodes(const char* frase) {
