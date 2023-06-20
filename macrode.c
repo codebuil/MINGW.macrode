@@ -6,6 +6,13 @@
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 HWND hwndTextbox1,hwndTextbox2,hwndButton ;
+void moverJanelaAtiva(int x, int y) {
+    HWND janelaAtiva = GetForegroundWindow();
+
+    if (janelaAtiva != NULL) {
+        SetWindowPos(janelaAtiva, NULL, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+    }
+}
 void enviarComandoClique() {
     
     // Simular o clique do mouse
@@ -92,6 +99,9 @@ if(strcmp(token[0],"print")==0){
         if(strcmp(token[0],"click")==0){
     	
 	if (count>0)enviarComandoClique();  
+    }
+if(strcmp(token[0],"window")==0){
+	if (count>2)moverJanelaAtiva(atoi(token[1]), atoi(token[2]));  
     }
 }
 void macrodes(const char* frase) {

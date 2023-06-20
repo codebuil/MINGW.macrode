@@ -1,5 +1,6 @@
 run,C:\Windows\System32\calc.exe
 sleep,1000
+window,0,0
 print,12
 key,187
 print,12=
