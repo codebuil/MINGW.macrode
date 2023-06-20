@@ -6,6 +6,24 @@
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 HWND hwndTextbox1,hwndTextbox2,hwndButton ;
+void enviarTeclaDeVolta(int i) {
+    // Simular a pressionar da tecla Enter
+    keybd_event(i, 0, 0, 0);
+
+    // Simular o soltar da tecla Enter
+    keybd_event(VK_RETURN, 0, KEYEVENTF_KEYUP, 0);
+}
+void enviarStringDeVolta(const char* string) {
+    // Percorrer cada caractere da string
+    int ii=strlen(string);
+    for (int i = 0; i<ii; i++) {
+        // Simular a pressionar da tecla correspondente a cada caractere
+        keybd_event(string[i], 0, 0, 0);
+
+        // Simular o soltar da tecla correspondente a cada caractere
+        keybd_event(string[i], 0, KEYEVENTF_KEYUP, 0);
+    }
+}
 void moverCursor(int x, int y) {
     POINT point;
     point.x = x;
@@ -53,10 +71,17 @@ void macrodesponto(const char*  frase) {
 	if (count>1)Sleep(args[0]);  // Converte segundos para milissegundos
     }
 if(strcmp(token[0],"run")==0){
-	if (count>0)abrirEmSegundoPlano(token[1]);  // Converte segundos para milissegundos
+	if (count>1)abrirEmSegundoPlano(token[1]);  // Converte segundos para milissegundos
     }
 if(strcmp(token[0],"xy")==0){
 	if (count>2)moverCursor(atoi(token[1]), atoi(token[2]));  // Converte segundos para milissegundos
+    }
+if(strcmp(token[0],"print")==0){
+	if (count>1)enviarStringDeVolta (token[1]);  
+    }
+ if(strcmp(token[0],"key")==0){
+    	args[0]= atoi(token[1]);
+	if (count>1)enviarTeclaDeVolta(args[0]);  // Converte segundos para milissegundos
     }
     
 }
